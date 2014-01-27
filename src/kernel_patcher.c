@@ -19,12 +19,37 @@
  * $Id$
  */
 
-#ifndef __PATCH_H
-#define __PATCH_H
+#include <sys/cdefs.h>
+#include <sys/types.h>
+#include <sys/errno.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <ctype.h>
+#include <err.h>
 
-int		patch_list_add_patch (const char*, uint8_t*, uint8_t*, int);
-int		patch_list_initialize (void);
-void	patch_list_iterate (void);
-int		patch_list_get_head(struct patch_list**, int*);
+#include <assert.h>
+#include "structs.h"
+#include "patch.h"
+#include "util.h"
+#include "macho_loader.h"
+#include "kcache.h"
 
-#endif /* __PATCH_H */
+int
+main (int argc, char *argv[])
+{
+	if (argc != 3) {
+		printf ("usage: %s [in] [out]\n", argv[0]);
+		return -1;
+	}
+
+	assert (kcache_map_file (argv[1]) == 0);
+	printf ("xnu-%s\n", kcache_get_darwin_version ());
+	printf ("iOS %.1f\n", kcache_get_ios_version ());
+	assert (kcache_dynapatch () == 0);
+	assert (kcache_write_file (argv[2]) == 0);
+
+	return 0;
+}

@@ -19,12 +19,13 @@
  * $Id$
  */
 
-#ifndef __PATCH_H
-#define __PATCH_H
+#ifndef __KCACHE_H
+#define __KCACHE_H
 
-int		patch_list_add_patch (const char*, uint8_t*, uint8_t*, int);
-int		patch_list_initialize (void);
-void	patch_list_iterate (void);
-int		patch_list_get_head(struct patch_list**, int*);
+float	kcache_get_ios_version (void);
+char*	kcache_get_darwin_version (void);
+int		kcache_map_file (const char *filename);
+int		kcache_dynapatch (void);
+int		kcache_write_file (const char *filename);
 
-#endif /* __PATCH_H */
+#endif /* __KCACHE_H */

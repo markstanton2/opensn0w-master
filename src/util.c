@@ -19,12 +19,23 @@
  * $Id$
  */
 
-#ifndef __PATCH_H
-#define __PATCH_H
+#include <sys/cdefs.h>
+#include <sys/types.h>
+#include <sys/errno.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <err.h>
 
-int		patch_list_add_patch (const char*, uint8_t*, uint8_t*, int);
-int		patch_list_initialize (void);
-void	patch_list_iterate (void);
-int		patch_list_get_head(struct patch_list**, int*);
+#include "util.h"
 
-#endif /* __PATCH_H */
+void *
+_xmalloc (size_t size)
+{
+	void *p = malloc (size);
+	if (!p)
+		err (-1, "cannot allocate chunk");
+	bzero (p, size);
+	return p;
+}

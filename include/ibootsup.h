@@ -19,12 +19,12 @@
  * $Id$
  */
 
-#ifndef __PATCH_H
-#define __PATCH_H
+#ifndef __IBOOTSUP_H
+#define __IBOOTSUP_H
 
-int		patch_list_add_patch (const char*, uint8_t*, uint8_t*, int);
-int		patch_list_initialize (void);
-void	patch_list_iterate (void);
-int		patch_list_get_head(struct patch_list**, int*);
+int		ibootsup_dynapatch (void);
+int		ibootsup_map_file (const char *filename);
+int		ibootsup_write_file (const char* filename);
+int		ibootsup_map_buffer (uint8_t* buf, int size);
 
-#endif /* __PATCH_H */
+#endif /* __IBOOTSUP_H */
